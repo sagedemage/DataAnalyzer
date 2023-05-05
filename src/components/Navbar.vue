@@ -7,9 +7,13 @@ defineProps({
 })
 </script>
 
+<script>
+
+</script>
+
 <template>
   <div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#/">Learn Vue</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -21,6 +25,25 @@ defineProps({
     </div>
   </div>
 </nav>
+
+<v-toolbar
+      class="navbar"
+      dark
+      prominent
+    >
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Learn Vue</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-export</v-icon>
+      </v-btn>
+    </v-toolbar>
+
+    
+
   </div>
 </template>
 
@@ -46,4 +69,10 @@ h3 {
     text-align: left;
   }
 }
+
+.navbar {
+  background-color: rgb(69, 69, 69);
+  color: white;
+}
+
 </style>
