@@ -4,7 +4,21 @@ main {
   margin-right: 10%;
 }
 
+#body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 .navbar {
   padding-right: 4%;
   padding-left: 4%;
+}
+
+#footer {
+  text-align: center;
+	height: 100px;
+  padding-top: 20px;
+  margin-top: auto;
+ 	border-top: 1px solid #eaeaea;
 }

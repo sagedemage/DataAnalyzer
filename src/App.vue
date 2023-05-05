@@ -3,6 +3,7 @@ import Navbar from './components/Navbar.vue'
 import Home from './components/pages/Home.vue'
 import About from './components/pages/About.vue'
 import NotFound from './components/pages/NotFound.vue'
+import Footer from './components/Footer.vue';
 </script>
 
 <script>
@@ -31,13 +32,13 @@ export default {
 </script>
 
 <template>
-  <header>
-  </header>
-
-  <Navbar />
-  <main>
-    <component :is="currentView" />
-  </main>
+  <div id="body">
+    <Navbar />
+    <main>
+      <component :is="currentView" />
+    </main>
+    <Footer id="footer" />
+  </div>
 </template>
 
 <style scoped>
