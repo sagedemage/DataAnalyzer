@@ -10,7 +10,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      //'vue$': path.resolve(__dirname, './node_modules/vue/dist/vue.runtime.esm.js')
     }
   }
 })
