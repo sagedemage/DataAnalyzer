@@ -15,11 +15,13 @@ defineProps({
       items: [
         {
           title: 'Home',
-          value: 'foo',
+          value: '#/',
+          route: '#/',
         },
         {
           title: 'About',
-          value: 'bar',
+          value: '#/about',
+          route: "#/about",
         },
       ],
     }),
@@ -29,6 +31,13 @@ defineProps({
         this.drawer = false
       },
     },
+
+    methods: {
+	  navigate(route) {
+      location.href = route;
+      this.drawer = false;
+  	}
+	}
   }
 </script>
 
@@ -70,8 +79,25 @@ defineProps({
         temporary
       >
         <v-list
-          :items="items"
-        ></v-list>
+            flat dense nav class="py-1"
+        >
+            <v-list-item-group color='primary' mandatory>
+                <v-list-item
+                    v-for="item in items"
+                    :key="item.title"
+                    dense
+                    @click="navigate(item.route)"
+                >
+                    <v-list-item-icon>
+                        <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-title>{{ item.title }}</v-list-title>
+                    </v-list-item-content>
+
+                </v-list-item>
+            </v-list-item-group>
+        </v-list>
       </v-navigation-drawer>
     </v-layout>
   </div>
