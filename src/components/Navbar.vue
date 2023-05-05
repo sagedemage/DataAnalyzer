@@ -8,7 +8,28 @@ defineProps({
 </script>
 
 <script>
+  export default {
+    data: () => ({
+      drawer: false,
+      group: null,
+      items: [
+        {
+          title: 'Home',
+          value: 'foo',
+        },
+        {
+          title: 'About',
+          value: 'bar',
+        },
+      ],
+    }),
 
+    watch: {
+      group () {
+        this.drawer = false
+      },
+    },
+  }
 </script>
 
 <template>
@@ -25,8 +46,7 @@ defineProps({
     </div>
   </div>
 </nav>
-
-    <v-app>
+    <v-layout>
       <v-app-bar
         color="primary"
         prominent
@@ -43,8 +63,17 @@ defineProps({
 
         <v-btn variant="text" icon="mdi-dots-vertical"></v-btn>
       </v-app-bar>
-    </v-app>
 
+      <v-navigation-drawer
+        v-model="drawer"
+        location="left"
+        temporary
+      >
+        <v-list
+          :items="items"
+        ></v-list>
+      </v-navigation-drawer>
+    </v-layout>
   </div>
 </template>
 
