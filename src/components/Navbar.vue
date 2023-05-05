@@ -26,23 +26,24 @@ defineProps({
   </div>
 </nav>
 
-<v-toolbar
-      class="navbar"
-      dark
-      prominent
-    >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-app>
+      <v-app-bar
+        color="primary"
+        prominent
+      >
+        <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Learn Vue</v-toolbar-title>
+        <v-toolbar-title>Learn Vue</v-toolbar-title>
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-export</v-icon>
-      </v-btn>
-    </v-toolbar>
+        <v-btn variant="text" icon="mdi-magnify"></v-btn>
 
-    
+        <v-btn variant="text" icon="mdi-filter"></v-btn>
+
+        <v-btn variant="text" icon="mdi-dots-vertical"></v-btn>
+      </v-app-bar>
+    </v-app>
 
   </div>
 </template>
