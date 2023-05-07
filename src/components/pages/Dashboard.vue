@@ -4,11 +4,16 @@
       drawer: false,
       group: null,
       shapes: [
-        {id: 0, length: 10, width: 10, area: 10*10},
-        {id: 1, length: 12, width: 12, area: 12*12},
-        {id: 2, length: 14, width: 14, area: 14*14},
-        {id: 3, length: 16, width: 16, area: 16*16},
-        {id: 4, length: 18, width: 18, area: 18*18},
+            {id: 0, length: 10, width: 10, area: 10*10},
+            {id: 1, length: 12, width: 12, area: 12*12},
+            {id: 2, length: 14, width: 14, area: 14*14},
+            {id: 3, length: 16, width: 16, area: 16*16},
+            {id: 4, length: 18, width: 18, area: 18*18},
+            {id: 5, length: 20, width: 20, area: 20*20},
+            {id: 6, length: 22, width: 22, area: 22*22},
+            {id: 7, length: 24, width: 24, area: 24*24},
+            {id: 8, length: 26, width: 26, area: 26*26},
+            {id: 9, length: 28, width: 28, area: 28*28},
         ]
     }),
 }
