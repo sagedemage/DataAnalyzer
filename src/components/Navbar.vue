@@ -24,6 +24,14 @@ defineProps({
         {
           title: 'Dashboard',
           route: "#/dashboard",
+        },
+        {
+          title: 'Login',
+          route: "#/login",
+        },
+        {
+          title: 'Register',
+          route: "#/register",
         }
       ],
     }),

@@ -5,13 +5,17 @@ import About from './components/pages/About.vue'
 import NotFound from './components/pages/NotFound.vue'
 import Footer from './components/Footer.vue';
 import Dashboard from './components/pages/Dashboard.vue';
+import Login from './components/pages/Login.vue';
+import Register from './components/pages/Register.vue';
 </script>
 
 <script>
 const routes = {
   '/': Home,
   '/about': About,
-  '/dashboard': Dashboard
+  '/dashboard': Dashboard,
+  '/login': Login,
+  '/register': Register
 }
 
 export default {
