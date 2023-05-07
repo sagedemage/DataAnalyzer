@@ -18,18 +18,31 @@
 <template>
     <h1>Dashboard</h1>
     <p>This is the dashboard page</p>
-    <table>
-        <tr>
-            <th>Length</th>
-            <th>Width</th>
-            <th>Area</th>
-        </tr>
-        <tr v-for="shape in shapes" :key="shape.id">
-            <td>{{ shape.length }}</td>
-            <td>{{ shape.width }}</td>
-            <td>{{ shape.area }}</td>
-        </tr>
-    </table>
+    <v-table>
+    <thead>
+      <tr>
+        <th class="text-left">
+          Length
+        </th>
+        <th class="text-left">
+          Width
+        </th>
+        <th class="text-left">
+          Area
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="shape in shapes"
+        :key="shape.id"
+      >
+        <td>{{ shape.length }}</td>
+        <td>{{ shape.width }}</td>
+        <td>{{ shape.area }}</td>
+      </tr>
+    </tbody>
+  </v-table>
 </template>
 
 <style scoped>
