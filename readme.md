@@ -2,34 +2,24 @@
 
 This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
+## Frontend Quick Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
+### Install Dependencies
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
+### Start Project for Development
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+## Branch Naming Scheme
+[Branch Naming Scheme](docs/branch_naming_scheme.md)
 
-```sh
-npm run build
-```
+## Frontend Cli
+[Frontend Cli](docs/frontend_cli.md)
 
-### Lint with [ESLint](https://eslint.org/)
+## Recommended IDE Setup for Frontend
+[Recommended IDE Setup for Frontend](docs/recommended_ide_setup_for_frontend.md)
 
-```sh
-npm run lint
-```
