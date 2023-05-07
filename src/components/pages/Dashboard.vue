@@ -42,9 +42,9 @@
         v-for="shape in shapes"
         :key="shape.id"
       >
-        <td>{{ shape.length }}</td>
-        <td>{{ shape.width }}</td>
-        <td>{{ shape.area }}</td>
+        <td class="text-left">{{ shape.length }}</td>
+        <td class="text-left">{{ shape.width }}</td>
+        <td class="text-left">{{ shape.area }}</td>
       </tr>
     </tbody>
   </v-table>
@@ -53,12 +53,15 @@
 <style scoped>
     table {
         border:0.5px solid black;
-        text-align: center;
     }
 
-    th, td {
+    th {
         border: 1px solid black;
-        padding-left: 10px;
-        padding-right: 10px;
+        background-color: #484848;
+        color: white !important;
+    }
+
+    td {
+        border: 1px solid black;
     }
 </style>
