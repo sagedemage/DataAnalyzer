@@ -43,44 +43,17 @@ defineProps({
 
 <template>
   <div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#/">Learn Vue</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="#/">Home</a>
-      <a class="nav-item nav-link" href="#/about">About</a>
-    </div>
-  </div>
-</nav>
     <v-layout>
-      <v-app-bar
-        color="primary"
-        prominent
-      >
-        <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
+      <v-app-bar color="#2E8B57" prominent>
+      <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>Learn Vue</v-toolbar-title>
-
         <v-spacer></v-spacer>
-
         <v-btn variant="text" icon="mdi-magnify"></v-btn>
-
         <v-btn variant="text" icon="mdi-filter"></v-btn>
-
         <v-btn variant="text" icon="mdi-dots-vertical"></v-btn>
       </v-app-bar>
-
-      <v-navigation-drawer
-        v-model="drawer"
-        location="left"
-        temporary
-      >
-        <v-list
-            flat dense nav class="py-1"
-        >
+      <v-navigation-drawer v-model="drawer" location="left" temporary>
+        <v-list flat dense nav class="py-1">
             <v-list-item-group color='primary' mandatory>
                 <v-list-item
                     v-for="item in items"
