@@ -4,12 +4,14 @@ import Home from './components/pages/Home.vue'
 import About from './components/pages/About.vue'
 import NotFound from './components/pages/NotFound.vue'
 import Footer from './components/Footer.vue';
+import Dashboard from './components/pages/Dashboard.vue';
 </script>
 
 <script>
 const routes = {
   '/': Home,
-  '/about': About
+  '/about': About,
+  '/dashboard': Dashboard
 }
 
 export default {

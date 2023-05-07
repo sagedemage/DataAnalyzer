@@ -15,14 +15,16 @@ defineProps({
       items: [
         {
           title: 'Home',
-          value: '#/',
           route: '#/',
         },
         {
           title: 'About',
-          value: '#/about',
           route: "#/about",
         },
+        {
+          title: 'Dashboard',
+          route: "#/dashboard",
+        }
       ],
     }),
 
