@@ -114,8 +114,12 @@ def decode_token(encoded):
     decoded = jwt.decode(encoded, secret, algorithms=["HS256"])
     return decoded
 
-@csrf_exempt
-@api_view(['GET'])
-def test(request):
-    return JsonResponse({'test': 'test'})
 
+@csrf_exempt
+@api_view(['GET', 'POST'])
+def test(request):
+    if request.method == 'GET':
+        return JsonResponse({'test': 'test1'})
+    elif request.method == 'POST':
+        test_data = request.data.get("test")
+        return JsonResponse({'test': test_data})

@@ -1,8 +1,8 @@
 <script>
     export default (await import('vue')).defineComponent({
     data: () => ({
-      data: null,
-      group: null,
+      data_get: null,
+      data_post: null,
       shapes: [
             {id: 0, length: 10, width: 10, area: 10*10},
             {id: 1, length: 12, width: 12, area: 12*12},
@@ -18,12 +18,27 @@
     }),
 
     methods: {
-	    async test() {
-            /* Test request to the backend */
+	    async test_get_req() {
+            /* Test GET request to the backend */
             const response = await fetch("http://localhost:8000/api/test");
-            this.data = await response.json();
-            console.log(this.data);
-  	    }
+            this.data_get = await response.json();
+            console.log(this.data_get);
+  	    },
+        async test_post_req() {
+            /* Test POST request to the backend */
+
+            const body = {test: "test2"};
+
+            const response = await fetch("http://localhost:8000/api/test", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                }, 
+                body: JSON.stringify(body)
+            });
+            this.data_post = await response.json();
+            console.log(this.data_post);
+        }
 	}
 })
 </script>
@@ -31,6 +46,8 @@
 <template>
     <h1>Home</h1>
     <p>This is the home page</p>
-    <v-btn color="blue" @click="test()">test</v-btn>
-    <p>Data: {{ data }}</p>
+    <v-btn color="blue" @click="test_get_req()">Send Get Req</v-btn>
+    <p>Data (GET HTTP request): {{ data_get }}</p>
+    <v-btn color="blue" @click="test_post_req()">Send Post Req</v-btn>
+    <p>Data (POST HTTP request): {{ data_post }}</p>
 </template>
