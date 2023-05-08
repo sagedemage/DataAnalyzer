@@ -43,11 +43,11 @@ defineProps({
     },
 
     methods: {
-	  navigate(route) {
-      location.href = route;
-      this.drawer = false;
-  	}
-	}
+	    navigate(route) {
+        location.href = route;
+        this.drawer = false;
+  	  }
+	  }
   }
 </script>
 
