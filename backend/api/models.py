@@ -22,5 +22,4 @@ class Row(models.Model):
     column1_data = models.CharField(max_length=200)
     column2_data = models.TextField(max_length=200)
     table_id = models.IntegerField()
-
     # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
