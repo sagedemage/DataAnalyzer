@@ -1,5 +1,5 @@
 <script>
-    export default {
+    export default (await import('vue')).defineComponent({
     data: () => ({
       drawer: false,
       group: null,
@@ -16,9 +16,8 @@
             {id: 9, length: 28, width: 28, area: 28*28},
         ]
     }),
-}
+})
 </script>
-
 
 <template>
     <h1>Dashboard</h1>
