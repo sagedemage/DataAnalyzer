@@ -101,3 +101,19 @@ def view_tables(request):
     tables = Table.objects.filter(user_id__exact=user_id)
     serializer = TableSerializer(tables, many=True)
     return JsonResponse({'tables': serializer.data})
+
+
+@csrf_exempt
+@api_view(['GET'])
+def fetch_table(request):
+    """
+    Route: /api/fetch-table
+    URL Parameters:
+    - table_id: integer
+    """
+    table_id = request.GET.get('id', '')
+    table = Table.objects.get(id=table_id)
+    name = table.name
+    column1_name = table.column1_name
+    column2_name = table.column2_name
+    return JsonResponse({"name": name, "column1_name": column1_name, "column2_name": column2_name})

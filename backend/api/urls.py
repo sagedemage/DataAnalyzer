@@ -16,6 +16,7 @@ urlpatterns = [
         path('delete-table', table.delete_table, name='delete_table'),
         path('update-table', table.update_table, name='update_table'),
         path('view-tables', table.view_tables, name='view_tables'),
+        path('fetch-table', table.fetch_table, name='fetch_table'),
 
         # row
         path('add-row', row.add_row, name='add_row'),
