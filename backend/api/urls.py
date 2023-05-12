@@ -23,6 +23,7 @@ urlpatterns = [
         path('update-row', row.update_row, name='update_row'),
         path('delete-row', row.delete_row, name='delete_row'),
         path('view-rows', row.view_rows, name='view_rows'),
+        path('fetch-row', row.fetch_row, name='fetch_row'),
 
         # test
         path('test', test.test, name='test'),

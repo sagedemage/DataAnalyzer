@@ -110,3 +110,18 @@ def view_rows(request):
             rows = Row.objects.filter(table_id__exact=table_id)
             serializer = RowSerializer(rows, many=True)
             return JsonResponse({'rows': serializer.data})
+
+
+@csrf_exempt
+@api_view(['GET'])
+def fetch_row(request):
+    """
+    Route: /api/fetch-row
+    URL Parameters:
+    - row_id: integer
+    """
+    row_id = request.GET.get('id', '')
+    row = Row.objects.get(id=row_id)
+    column1_data = row.column1_data
+    column2_data = row.column2_data
+    return JsonResponse({"column1_data": column1_data, "column2_data": column2_data})
