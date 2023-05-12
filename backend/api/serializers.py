@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import User, Table
+from .models import User, Table, Row
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -12,4 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
 class TableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Table
-        fields = ['title', 'description']
+        fields = ['name', 'column1_name', 'column2_name', 'user_id']
+
+
+class RowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Table
+        fields = ['column1_data', 'column2_data', 'table_id']
