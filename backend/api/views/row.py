@@ -116,7 +116,8 @@ def view_rows(request):
 @api_view(['GET'])
 def fetch_row(request):
     """
-    Route: /api/fetch-row
+    Route: /api/fetch-row?id={number}
+    Example Route: /api/fetch-row?id=1
     URL Parameters:
     - row_id: integer
     """

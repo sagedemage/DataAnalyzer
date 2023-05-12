@@ -107,7 +107,8 @@ def view_tables(request):
 @api_view(['GET'])
 def fetch_table(request):
     """
-    Route: /api/fetch-table
+    Route: /api/fetch-table?id={number}
+    Example Route: /api/fetch-table?id=1
     URL Parameters:
     - table_id: integer
     """
