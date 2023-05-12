@@ -17,5 +17,5 @@ class TableSerializer(serializers.ModelSerializer):
 
 class RowSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Table
+        model = Row
         fields = ['column1_data', 'column2_data', 'table_id']

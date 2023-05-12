@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt;
 from rest_framework.decorators import api_view
 from .serializers import UserSerializer, TableSerializer, RowSerializer
-from .models import User, Table
+from .models import User, Table, Row
 from django.contrib.auth.hashers import make_password, check_password
 
 from dotenv import load_dotenv
@@ -180,47 +180,121 @@ def view_tables(request):
 
 """ Row Operations """
 
+
 @csrf_exempt
 @api_view(['POST'])
 def add_row(request):
     """
     Request Parameters:
+    - user_id: integer
     - table_id: integer
-    - name: string
     - column1_data: string
     - column1_data: string
     """
     serializer = RowSerializer(data=request.data)
     if serializer.is_valid():
-        user = User.objects.filter(id=request.data.get("table_id"))
+        user_id = request.data.get("user_id")
+        table_id = request.data.get("table_id")
+        user = User.objects.filter(id=user_id)
+        table = Table.objects.filter(id=table_id)
         if user.exists():
-            table = Table(
-                    name=serializer.data.get("name"),
-                    column1_name=serializer.data.get("column1_data"),
-                    column2_name=request.data.get("column2_data")
-            )
-            table.save()
-            return HttpResponse("Added Row")
-        else:
-            return HttpResponse("Table Does Not Exist")
+            if table.exists():
+                row = Row(
+                    column1_data=request.data.get("column1_data"),
+                    column2_data=request.data.get("column2_data"),
+                    table_id=table_id,
+                )
+                row.save()
+                return HttpResponse("Added Row")
+            else:
+                return HttpResponse("Table Does Not Exist")
     else:
         return HttpResponse("Data not valid")
 
 
 @csrf_exempt
+@api_view(['PATCH'])
+def update_row(request):
+    """
+    Request Parameters:
+    - user_id: integer
+    - table_id: integer
+    - row_id: integer
+    - column1_data: string
+    - column1_data: string
+    """
+    serializer = RowSerializer(data=request.data)
+    if serializer.is_valid():
+        user_id = request.data.get("user_id")
+        table_id = request.data.get("table_id")
+        row_id = request.data.get("row_id")
+        user = User.objects.filter(id=user_id)
+        table = Table.objects.filter(id=table_id)
+        if user.exists():
+            if table.exists():
+                row = Row.objects.get(id=row_id)
+                row.column1_data = request.data.get("column1_data")
+                row.column2_data = request.data.get("column2_data")
+                row.save()
+                return HttpResponse("Updated Row")
+            else:
+                return HttpResponse("Table Does Not Exist")
+    else:
+        return HttpResponse("Data not valid")
+
+
+@csrf_exempt
+@api_view(['DELETE'])
+def delete_row(request):
+    """
+    Request Parameters:
+    - user_id: integer
+    - table_id: integer
+    - row_id: integer
+    """
+    user_id = request.data.get("user_id")
+    table_id = request.data.get("table_id")
+    row_id = request.data.get("row_id")
+    user = User.objects.filter(id=user_id)
+    table = Table.objects.filter(id=table_id)
+    if user.exists():
+        if table.exists():
+            row = Row.objects.filter(id=row_id)
+            row.delete()
+            return HttpResponse("Delete Row")
+        else:
+            return HttpResponse("Table Does Not Exist")
+
+
+@csrf_exempt
 @api_view(['POST'])
 def view_rows(request):
+    """
+    Request Parameters:
+    - user_id: integer
+    - table_id: integer
+    """
+    user_id = request.data.get("user_id")
     table_id = request.data.get("table_id")
-    tables = Table.objects.filter(table_id__exact=table_id)
-    serializer = TableSerializer(tables, many=True)
-    return JsonResponse({'rows': serializer.data})
+    user = User.objects.filter(id=user_id)
+    table = Table.objects.filter(id=table_id)
+    if user.exists():
+        if table.exists():
+            rows = Row.objects.filter(table_id__exact=table_id)
+            serializer = RowSerializer(rows, many=True)
+            return JsonResponse({'rows': serializer.data})
 
 
 """ JWT Operations """
 
+
 @csrf_exempt
 @api_view(['POST'])
 def get_decoded_token(request):
+    """
+       Request Parameters:
+       - token: string
+    """
     token = request.data.get("token")
     decoded_token = decode_token(token)
     auth = decoded_token.get('auth')
