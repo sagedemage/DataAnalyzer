@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 
@@ -9,12 +10,16 @@ class User(models.Model):
     password = models.CharField(max_length=200)
 
 
-class Post(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField(max_length=15000)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+class Table(models.Model):
+    name = models.CharField(max_length=200)
+    column1_name = models.TextField(max_length=200)
+    column2_name = models.TextField(max_length=200)
+    user_id = models.IntegerField()
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
 
-
-
-
+class Row(models.Model):
+    column1_data = models.CharField(max_length=200)
+    column2_data = models.TextField(max_length=200)
+    table_id = models.IntegerField()
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)

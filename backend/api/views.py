@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt;
 from rest_framework.decorators import api_view
-from .serializers import UserSerializer, PostSerializer
-from .models import User, Post
+from .serializers import UserSerializer, TableSerializer
+from .models import User, Table
 from django.contrib.auth.hashers import make_password, check_password
 
 from dotenv import load_dotenv
@@ -68,16 +68,18 @@ def login(request):
 
 @csrf_exempt
 @api_view(['POST'])
-def add_post(request):
-    serializer = PostSerializer(data=request.data)
+def add_table(request):
+    serializer = TableSerializer(data=request.data)
     if serializer.is_valid():
         user = User.objects.filter(id=request.data.get("user_id"))
         if user.exists():
-            post = Post(title=serializer.data.get("title"),
-                        description=serializer.data.get("description"),
-                        user_id=request.data.get("user_id"))
+            post = Table(
+                    name=serializer.data.get("name"),
+                    column1_name=serializer.data.get("column1_name"),
+                    column2_name=request.data.get("column2_name")
+            )
             post.save()
-            return HttpResponse("Added Post")
+            return HttpResponse("Added Table")
         else:
             return HttpResponse("User Does Not Exist")
     else:
@@ -86,10 +88,10 @@ def add_post(request):
 
 @csrf_exempt
 @api_view(['POST'])
-def view_posts(request):
+def view_tables(request):
     user_id = request.data.get("user_id")
-    posts = Post.objects.filter(user_id__exact=user_id)
-    serializer = PostSerializer(posts, many=True)
+    posts = Table.objects.filter(user_id__exact=user_id)
+    serializer = TableSerializer(posts, many=True)
     return JsonResponse({'posts': serializer.data})
 
 
