@@ -1,22 +1,24 @@
-from django.http import HttpResponse
+""" Authentication """
+
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt;
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
-from .serializers import UserSerializer, TableSerializer
-from .models import User, Table
+
+from .jwt import generate_token
+from ..serializers import UserSerializer
+from ..models import User
 from django.contrib.auth.hashers import make_password, check_password
-
-from dotenv import load_dotenv
-import jwt
-import os
-# Create your views here.
-
-load_dotenv()  # take environment variables from .env.
-
 
 @csrf_exempt
 @api_view(['POST'])
 def register(request):
+    """
+    Route: /api/register
+    Request Parameters:
+    - email: string
+    - username: string
+    - password: string
+    """
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         email_match = User.objects.filter(email__exact=serializer.data.get("email"))
@@ -37,6 +39,12 @@ def register(request):
 @csrf_exempt
 @api_view(['POST'])
 def login(request):
+    """
+    Route: /api/login
+    Request Parameters:
+    - username: string
+    - password: string
+    """
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         email_match = User.objects.filter(email__exact=serializer.data.get("username"))
@@ -66,62 +74,5 @@ def login(request):
         return JsonResponse({'auth': False, 'err_msg': "Data is not valid"})
 
 
-@csrf_exempt
-@api_view(['POST'])
-def add_table(request):
-    serializer = TableSerializer(data=request.data)
-    if serializer.is_valid():
-        user = User.objects.filter(id=request.data.get("user_id"))
-        if user.exists():
-            post = Table(
-                    name=serializer.data.get("name"),
-                    column1_name=serializer.data.get("column1_name"),
-                    column2_name=request.data.get("column2_name")
-            )
-            post.save()
-            return HttpResponse("Added Table")
-        else:
-            return HttpResponse("User Does Not Exist")
-    else:
-        return HttpResponse("Data not valid")
 
 
-@csrf_exempt
-@api_view(['POST'])
-def view_tables(request):
-    user_id = request.data.get("user_id")
-    posts = Table.objects.filter(user_id__exact=user_id)
-    serializer = TableSerializer(posts, many=True)
-    return JsonResponse({'posts': serializer.data})
-
-
-@csrf_exempt
-@api_view(['POST'])
-def get_decoded_token(request):
-    token = request.data.get("token")
-    decoded_token = decode_token(token)
-    auth = decoded_token.get('auth')
-    user_id = decoded_token.get('user_id')
-    return JsonResponse({'auth': auth, 'user_id': user_id})
-
-
-def generate_token(user_id):
-    secret = os.getenv("JWT_SECRET")
-    encoded = jwt.encode({"auth": True, "user_id": user_id}, secret, algorithm="HS256")
-    return encoded
-
-
-def decode_token(encoded):
-    secret = os.getenv("JWT_SECRET")
-    decoded = jwt.decode(encoded, secret, algorithms=["HS256"])
-    return decoded
-
-
-@csrf_exempt
-@api_view(['GET', 'POST'])
-def test(request):
-    if request.method == 'GET':
-        return JsonResponse({'test': 'test1'})
-    elif request.method == 'POST':
-        test_data = request.data.get("test")
-        return JsonResponse({'test': test_data})
