@@ -4,7 +4,7 @@ module.exports = {
         url: [
           'http://localhost:5173',
         ],
-        startServerCommand: 'npm run build && npm run dev',
+        startServerCommand: 'npm run dev',
       },
       assert: {
         assertions: {

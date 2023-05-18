@@ -31,3 +31,6 @@ coverage
 backend/venv/
 __pycache__/
 .env
+
+# Ignore lighthouse directory
+.lighthouseci
