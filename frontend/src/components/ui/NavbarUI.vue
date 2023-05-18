@@ -14,23 +14,23 @@ defineProps({
       group: null,
       items: [
         {
-          title: 'Home',
-          route: '#/',
+          title: "Home",
+          route: "#/",
         },
         {
-          title: 'About',
+          title: "About",
           route: "#/about",
         },
         {
-          title: 'Dashboard',
+          title: "Dashboard",
           route: "#/dashboard",
         },
         {
-          title: 'Login',
+          title: "Login",
           route: "#/login",
         },
         {
-          title: 'Register',
+          title: "Register",
           route: "#/register",
         }
       ],
@@ -43,11 +43,11 @@ defineProps({
     },
 
     methods: {
-	    navigate(route) {
+      navigate(route) {
         location.href = route;
         this.drawer = false;
-  	  }
-	  }
+      }
+    }
   }
 </script>
 
