@@ -1,5 +1,5 @@
 <script>
-    export default (await import('vue')).defineComponent({
+    export default (await import("vue")).defineComponent({
     data: () => ({
       data_get: null,
       data_post: null,
@@ -18,12 +18,12 @@
     }),
 
     methods: {
-	    async test_get_req() {
+        async test_get_req() {
             /* Test GET request to the backend */
             const response = await fetch("http://localhost:8000/api/test");
             this.data_get = await response.json();
             console.log(this.data_get);
-  	    },
+        },
         async test_post_req() {
             /* Test POST request to the backend */
 

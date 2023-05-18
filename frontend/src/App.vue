@@ -1,26 +1,26 @@
 <script setup>
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from "vue"
 </script>
 
 <script>
 /* UI Components */
-const Navbar = defineAsyncComponent(() => import('@/components/ui/Navbar.vue'));
-const Footer = defineAsyncComponent(() => import('@/components/ui/Footer.vue'));
+const NavbarUI = defineAsyncComponent(() => import("@/components/ui/NavbarUI.vue"));
+const FooterUI = defineAsyncComponent(() => import("@/components/ui/FooterUI.vue"));
 
 /* Page Components */
-const Home = defineAsyncComponent(() => import('@/components/pages/Home.vue'));
-const About = defineAsyncComponent(() => import('@/components/pages/About.vue'));
-const NotFound = defineAsyncComponent(() => import('@/components/pages/NotFound.vue'));
-const Dashboard = defineAsyncComponent(() => import('@/components/pages/Dashboard.vue'));
-const Login = defineAsyncComponent(() => import('@/components/pages/Login.vue'));
-const Register = defineAsyncComponent(() => import('@/components/pages/Register.vue'));
+const HomePage = defineAsyncComponent(() => import("@/components/pages/HomePage.vue"));
+const AboutPage = defineAsyncComponent(() => import("@/components/pages/AboutPage.vue"));
+const PageNotFound = defineAsyncComponent(() => import("@/components/pages/PageNotFound.vue"));
+const DashboardPage = defineAsyncComponent(() => import("@/components/pages/DashboardPage.vue"));
+const LoginPage = defineAsyncComponent(() => import("@/components/pages/LoginPage.vue"));
+const RegisterPage = defineAsyncComponent(() => import("@/components/pages/RegisterPage.vue"));
 
 const routes = {
-  '/': Home,
-  '/about': About,
-  '/dashboard': Dashboard,
-  '/login': Login,
-  '/register': Register
+  "/": HomePage,
+  "/about": AboutPage,
+  "/dashboard": DashboardPage,
+  "/login": LoginPage,
+  "/register": RegisterPage
 }
 
 export default {
@@ -31,11 +31,11 @@ export default {
   },
   computed: {
     currentView() {
-      return routes[this.currentPath.slice(1) || '/'] || NotFound
+      return routes[this.currentPath.slice(1) || "/"] || PageNotFound
     }
   },
   mounted() {
-    window.addEventListener('hashchange', () => {
+    window.addEventListener("hashchange", () => {
           this.currentPath = window.location.hash
         })
   }
@@ -44,11 +44,11 @@ export default {
 
 <template>
   <div id="body">
-    <Navbar />
+    <NavbarUI />
     <main>
       <component :is="currentView" />
     </main>
-    <Footer id="footer" />
+    <FooterUI id="footer" />
   </div>
 </template>
 

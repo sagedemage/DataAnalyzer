@@ -1,5 +1,5 @@
 <script>
-    export default (await import('vue')).defineComponent({
+    export default (await import("vue")).defineComponent({
     data: () => ({
       drawer: false,
       group: null,
