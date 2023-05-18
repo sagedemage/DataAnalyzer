@@ -54,7 +54,7 @@ defineProps({
 <template>
   <div>
     <v-layout>
-      <v-app-bar color="#2E8B57" prominent>
+      <v-app-bar color="#39AE6D" prominent>
       <v-app-bar-nav-icon variant="text" aria-label="navigation hamburger menu" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>Learn Vue</v-toolbar-title>
         <v-spacer></v-spacer>
