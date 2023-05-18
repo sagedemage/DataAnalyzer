@@ -1,15 +1,20 @@
 <script setup>
-import Navbar from './components/Navbar.vue'
-import Home from './components/pages/Home.vue'
-import About from './components/pages/About.vue'
-import NotFound from './components/pages/NotFound.vue'
-import Footer from './components/Footer.vue';
-import Dashboard from './components/pages/Dashboard.vue';
-import Login from './components/pages/Login.vue';
-import Register from './components/pages/Register.vue';
+import { defineAsyncComponent } from 'vue'
 </script>
 
 <script>
+/* UI Components */
+const Navbar = defineAsyncComponent(() => import('@/components/ui/Navbar.vue'));
+const Footer = defineAsyncComponent(() => import('@/components/ui/Footer.vue'));
+
+/* Page Components */
+const Home = defineAsyncComponent(() => import('@/components/pages/Home.vue'));
+const About = defineAsyncComponent(() => import('@/components/pages/About.vue'));
+const NotFound = defineAsyncComponent(() => import('@/components/pages/NotFound.vue'));
+const Dashboard = defineAsyncComponent(() => import('@/components/pages/Dashboard.vue'));
+const Login = defineAsyncComponent(() => import('@/components/pages/Login.vue'));
+const Register = defineAsyncComponent(() => import('@/components/pages/Register.vue'));
+
 const routes = {
   '/': Home,
   '/about': About,
