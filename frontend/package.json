@@ -9,6 +9,7 @@
     "lint": "eslint src --ext .vue,.js,.jsx,.cjs,.mjs"
   },
   "dependencies": {
+    "universal-cookie": "^4.0.4",
     "vue": "^3.2.47",
     "vuetify": "^3.2.2"
   },
