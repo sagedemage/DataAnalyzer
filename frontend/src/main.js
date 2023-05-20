@@ -16,8 +16,6 @@ const DashboardPage = () => import("@/components/pages/DashboardPage.vue");
 const LoginPage = () => import("@/components/pages/LoginPage.vue");
 const RegisterPage = () => import("@/components/pages/RegisterPage.vue");
 
-import "./assets/main.css"
-
 const routes = [
   { path: "/", component: HomePage },
   { path: "/about", component: AboutPage },
