@@ -7,20 +7,24 @@ export default {
         response_json: null,
         auth: null,
         err_msg: "",
-        username: '',
+        username: "",
         usernameRules: [
             value => {
-                if (value?.length >= 6) return true
+                if (value?.length >= 6) {
+                    return true
+                }
 
-                return 'Username must be at least 6 characters.'
+                return "Username must be at least 6 characters."
             },
         ],
-        password: '',
+        password: "",
         passwordRules: [
             value => {
-                if (value?.length >= 8) return true
+                if (value?.length >= 8) {
+                    return true
+                }
 
-                return 'Password must be at least 3 characters.'
+                return "Password must be at least 3 characters."
             },
         ],
     }),
