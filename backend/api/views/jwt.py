@@ -19,7 +19,7 @@ def get_decoded_token(request):
        Request Parameters:
        - token: string
     """
-    token = request.data.get("token")
+    token = bytes(request.data.get("token"), "utf8")
     decoded_token = decode_token(token)
     auth = decoded_token.get('auth')
     user_id = decoded_token.get('user_id')
