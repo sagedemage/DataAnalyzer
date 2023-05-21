@@ -68,6 +68,7 @@ export default {
     logout() {
       const cookies = new Cookies();
       cookies.remove("token");
+      this.$router.push('/')
     }
   },
 
