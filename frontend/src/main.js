@@ -30,7 +30,7 @@ const routes = [
   {
     path: "/dashboard",
     component: DashboardPage,
-    beforeEnter: async(to, from) => {
+    beforeEnter: async() => {
       return await AuthRoute()
     }
   },
