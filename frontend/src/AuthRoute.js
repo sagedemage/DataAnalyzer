@@ -1,22 +1,23 @@
 import Cookies from "universal-cookie";
+import axios from "axios";
+import { reactive } from 'vue'
+
+const store = reactive({
+  is_authenticated: false
+})
 
 export default async function AuthRoute() {
-    let is_authenticated = false;
-  
     const cookies = new Cookies();
     const token = cookies.get("token");
-  
-    const body = { token: token };
-  
-    const response = await fetch("http://localhost:8000/api/get-decoded-token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body)
-    });
-    const response_json = await response.json();
-    is_authenticated = response_json["auth"];
-  
-    return is_authenticated;
+
+    try {
+      const response = await axios.post("http://localhost:8000/api/get-decoded-token", {
+        token: token
+      })
+      store.is_authenticated = response.data.auth;
+    } catch {
+      console.error(error)
+    }
+
+    return store.is_authenticated;
   }
