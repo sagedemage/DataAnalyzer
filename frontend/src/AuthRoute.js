@@ -1,6 +1,6 @@
 import Cookies from "universal-cookie";
 import axios from "axios";
-import { reactive } from 'vue'
+import { reactive } from "vue";
 
 const store = reactive({
   is_authenticated: false
@@ -15,7 +15,7 @@ export default async function AuthRoute() {
         token: token
       })
       store.is_authenticated = response.data.auth;
-    } catch {
+    } catch (error) {
       console.error(error)
     }
 
