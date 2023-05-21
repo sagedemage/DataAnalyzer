@@ -1,6 +1,7 @@
 <script>
 
 import Cookies from "universal-cookie";
+import Redirect from "@/Redirect";
 
 export default {
     data: () => ({
@@ -46,11 +47,7 @@ export default {
                 const cookies = new Cookies();
                 cookies.set("token", this.response_json["token"]);
                 
-                //this.$router.push('/dashboard')
-                //this.$router.go()
-
-                location.href = "#/dashboard";
-                location.reload(true);
+                Redirect("/dashboard");
             }
             else {
                 this.auth = false;

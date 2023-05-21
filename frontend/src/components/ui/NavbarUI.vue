@@ -1,6 +1,6 @@
 <script setup>
-//import { defineAsyncComponent } from "vue"
 import Cookies from "universal-cookie";
+import Redirect from "@/Redirect";
 
 defineProps({
   msg: {
@@ -11,8 +11,6 @@ defineProps({
 </script>
 
 <script>
-//const AuthRoute = defineAsyncComponent(() => import("@/component/AuthRoute"));
-
 import AuthRoute from "@/AuthRoute";
 
 export default {
@@ -69,11 +67,7 @@ export default {
       const cookies = new Cookies();
       cookies.remove("token");
 
-      //this.$router.push('/')
-      //this.$router.go()
-
-      location.href = "#/";
-      location.reload(true);
+      Redirect("/");
     }
   },
 
