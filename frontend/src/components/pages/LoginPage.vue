@@ -42,7 +42,6 @@ export default {
                 body: JSON.stringify(body)
             });
             this.response_json = await response.json();
-            console.log(this.response_json)
             if (this.response_json["auth"] === true) {
                 const cookies = new Cookies();
                 cookies.set("token", this.response_json["token"]);
@@ -51,7 +50,6 @@ export default {
             else {
                 this.auth = false;
                 this.err_msg = this.response_json["err_msg"]
-                console.log(this.response_json["err_msg"])
             }
         }
 	}

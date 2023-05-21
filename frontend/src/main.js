@@ -16,7 +16,7 @@ const DashboardPage = () => import("@/components/pages/DashboardPage.vue");
 const LoginPage = () => import("@/components/pages/LoginPage.vue");
 const RegisterPage = () => import("@/components/pages/RegisterPage.vue");
 
-import AuthRoute from "@/components/AuthRoute";
+import AuthRoute from "@/AuthRoute";
 
 const routes = [
   {
