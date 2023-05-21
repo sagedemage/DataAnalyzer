@@ -45,8 +45,12 @@ export default {
             if (this.response_json["auth"] === true) {
                 const cookies = new Cookies();
                 cookies.set("token", this.response_json["token"]);
-                this.$router.push('/dashboard')
                 
+                //this.$router.push('/dashboard')
+                //this.$router.go()
+
+                location.href = "#/dashboard";
+                location.reload(true);
             }
             else {
                 this.auth = false;

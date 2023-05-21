@@ -68,7 +68,12 @@ export default {
     logout() {
       const cookies = new Cookies();
       cookies.remove("token");
-      this.$router.push('/')
+
+      //this.$router.push('/')
+      //this.$router.go()
+
+      location.href = "#/";
+      location.reload(true);
     }
   },
 
