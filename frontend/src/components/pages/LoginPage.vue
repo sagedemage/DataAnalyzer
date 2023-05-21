@@ -1,5 +1,4 @@
 <script>
-
 import Cookies from "universal-cookie";
 import Redirect from "@/Redirect";
 import axios from "axios";
@@ -33,32 +32,29 @@ export default {
     methods: {
         async login() {
             /* Login POST request */
-            
+
             axios.post("http://localhost:8000/api/login", {
-                username: this.username, 
+                username: this.username,
                 password: this.password
             })
-            .then(function (response) {
-                console.log(response);
-                if (response.data.auth === true) {
-                    const cookies = new Cookies();
-                    cookies.set("token", response.data.token);
-                    Redirect("/dashboard");
-                }
-                else {
-                    this.auth = false;
-                    this.err_msg = response.data.err_msg;
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+                .then(function (response) {
+                    console.log(response);
+                    if (response.data.auth === true) {
+                        const cookies = new Cookies();
+                        cookies.set("token", response.data.token);
+                        Redirect("/dashboard");
+                    }
+                    else {
+                        this.auth = false;
+                        this.err_msg = response.data.err_msg;
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     }
 }
-
-
-
 </script>
 
 <template>
