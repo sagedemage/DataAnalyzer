@@ -2,10 +2,10 @@
 
 import Cookies from "universal-cookie";
 import Redirect from "@/Redirect";
+import axios from "axios";
 
 export default {
     data: () => ({
-        response_json: null,
         auth: null,
         err_msg: "",
         username: "",
@@ -33,28 +33,28 @@ export default {
     methods: {
         async login() {
             /* Login POST request */
-            const body = {username: this.username, password: this.password};
-
-            const response = await fetch("http://localhost:8000/api/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                }, 
-                body: JSON.stringify(body)
+            
+            axios.post("http://localhost:8000/api/login", {
+                username: this.username, 
+                password: this.password
+            })
+            .then(function (response) {
+                console.log(response);
+                if (response.data.auth === true) {
+                    const cookies = new Cookies();
+                    cookies.set("token", response.data.token);
+                    Redirect("/dashboard");
+                }
+                else {
+                    this.auth = false;
+                    this.err_msg = response.data.err_msg;
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
             });
-            this.response_json = await response.json();
-            if (this.response_json["auth"] === true) {
-                const cookies = new Cookies();
-                cookies.set("token", this.response_json["token"]);
-                
-                Redirect("/dashboard");
-            }
-            else {
-                this.auth = false;
-                this.err_msg = this.response_json["err_msg"]
-            }
         }
-	}
+    }
 }
 
 
