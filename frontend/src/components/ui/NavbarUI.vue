@@ -1,5 +1,6 @@
 <script setup>
-import { defineAsyncComponent } from "vue"
+//import { defineAsyncComponent } from "vue"
+import Cookies from "universal-cookie";
 
 defineProps({
   msg: {
@@ -64,6 +65,10 @@ export default {
       location.href = route;
       this.drawer = false;
     },
+    logout() {
+      const cookies = new Cookies();
+      cookies.remove("token");
+    }
   },
 
   async mounted() {
@@ -83,27 +88,24 @@ export default {
           @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>Learn Vue</v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-btn id="logout" v-if="is_authenticated" variant="elevated" @click="$event => logout()">Logout</v-btn>
       </v-app-bar>
       <v-navigation-drawer v-model="drawer" location="left" temporary>
         <v-list flat dense nav class="py-1" aria-label="list of navigation links" role="tablist">
-          <v-list-item-group color='primary' mandatory>
+          <v-list-item-group v-model="authenticated" color='primary' mandatory>
+            <!-- User is Authenticated -->
             <div v-if="is_authenticated">
               <v-list-item v-for="route in auth_routes" :key="route.title" dense @click="navigate(route.route)"
               aria-label="link item" role="tab">
-              <v-list-item-icon>
-                <v-icon>{{ route.icon }}</v-icon>
-              </v-list-item-icon>
               <v-list-item-content>
                 <v-list-title>{{ route.title }}</v-list-title>
               </v-list-item-content>
               </v-list-item>
             </div>
+            <!-- User is not Authenticated -->
             <div v-if="!is_authenticated">
               <v-list-item v-for="route in normal_routes" :key="route.title" dense @click="navigate(route.route)"
               aria-label="link item" role="tab">
-              <v-list-item-icon>
-                <v-icon>{{ route.icon }}</v-icon>
-              </v-list-item-icon>
               <v-list-item-content>
                 <v-list-title>{{ route.title }}</v-list-title>
               </v-list-item-content>
@@ -142,6 +144,11 @@ h3 {
 
 .navbar {
   background-color: rgb(69, 69, 69);
+  color: white;
+}
+
+#logout {
+  background-color: rgb(17, 53, 255) !important;
   color: white;
 }
 </style>
