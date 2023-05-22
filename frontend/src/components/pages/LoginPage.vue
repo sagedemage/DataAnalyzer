@@ -33,10 +33,10 @@ export default {
         let password = ref("");
 
         function login() {
-            if (this.username !== "" && this.password !== "") {
+            if (username.value !== "" && password.value !== "") {
                 axios.post("http://localhost:8000/api/login", {
                     username: username.value,
-                    password: this.password
+                    password: password.value
                 })
                     .then(function (response) {
                         console.log(response);
