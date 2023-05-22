@@ -73,8 +73,8 @@ export default {
                     }
                     else {
                         console.log(response.data.err_msg)
-                        //this.registered = false;
-                        //this.err_msg = response.data.err_msg;
+                        this.registered = false;
+                        this.err_msg = response.data.err_msg;
                     }
                 })
                 .catch(function(error) {

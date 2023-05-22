@@ -6,9 +6,6 @@ import axios from "axios";
 
 export default {
     data: () => ({
-        //auth: null,
-        err_msg: "",
-        username: "",
         usernameRules: [
             value => {
                 if (value?.length >= 6) {
@@ -18,7 +15,6 @@ export default {
                 return "Username must be at least 6 characters."
             },
         ],
-        password: "",
         passwordRules: [
             value => {
                 if (value?.length >= 8) {
@@ -33,31 +29,35 @@ export default {
     setup() {
         let auth = ref(undefined);
         let err_msg = ref(undefined);
-    
+        let username = ref("");
+        let password = ref("");
+
         function login() {
-            axios.post("http://localhost:8000/api/login", {
-                username: this.username,
-                password: this.password
-            })
-                .then(function (response) {
-                    console.log(response);
-                    console.log(response.data.err_msg)
-                    if (response.data.auth === true) {
-                        const cookies = new Cookies();
-                        cookies.set("token", response.data.token);
-                        Redirect("/dashboard");
-                    }
-                    else {
-                        auth.value = false;
-                        err_msg.value = response.data.err_msg;
-                    }
+            if (this.username !== "" && this.password !== "") {
+                axios.post("http://localhost:8000/api/login", {
+                    username: username.value,
+                    password: this.password
                 })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                    .then(function (response) {
+                        console.log(response);
+                        console.log(response.data.err_msg)
+                        if (response.data.auth === true) {
+                            const cookies = new Cookies();
+                            cookies.set("token", response.data.token);
+                            Redirect("/dashboard");
+                        }
+                        else {
+                            auth.value = false;
+                            err_msg.value = response.data.err_msg;
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
         }
 
-        return { auth, login, err_msg }
+        return { auth, login, err_msg, username, password }
     },
 
     methods: {
