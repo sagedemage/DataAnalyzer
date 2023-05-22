@@ -8,20 +8,20 @@ export default {
     data: () => ({
         usernameRules: [
             value => {
-                if (value?.length >= 6) {
-                    return true
+                if (value === "") {
+                    return "Username can't be empty."
                 }
 
-                return "Username must be at least 6 characters."
+                return true
             },
         ],
         passwordRules: [
             value => {
-                if (value?.length >= 8) {
-                    return true
+                if (value === "") {
+                    return "Password can't be empty."
                 }
 
-                return "Password must be at least 3 characters."
+                return true
             },
         ],
     }),
@@ -59,32 +59,6 @@ export default {
 
         return { auth, login, err_msg, username, password }
     },
-
-    methods: {
-        /*async login() {
-            / Login POST request /
-
-            axios.post("http://localhost:8000/api/login", {
-                username: this.username,
-                password: this.password
-            })
-                .then(function (response) {
-                    console.log(response);
-                    if (response.data.auth === true) {
-                        const cookies = new Cookies();
-                        cookies.set("token", response.data.token);
-                        Redirect("/dashboard");
-                    }
-                    else {
-                        auth.value = false;
-                        this.err_msg = response.data.err_msg;
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }*/
-    }
 }
 </script>
 
