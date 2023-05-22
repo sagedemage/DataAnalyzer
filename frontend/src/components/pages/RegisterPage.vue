@@ -10,9 +10,6 @@ export default {
                 if (value === "") {
                     return "Field can't be empty."
                 }
-                else if (value?.length < 6) {
-                    return "Email must be at least 6 characters."
-                }
                 return true
             },
         ],
@@ -20,9 +17,6 @@ export default {
             value => {
                 if (value === "") {
                     return "Field can't be empty."
-                }
-                else if (value?.length < 6) {
-                    return "Username must be at least 6 characters."
                 }
                 return true
             },
@@ -43,11 +37,10 @@ export default {
         ],
         confirmRules: [
             value => {
-                if (value?.length >= 8) {
-                    return true
+                if (value === "") {
+                    return "Field can't be empty."
                 }
-
-                return "Password must be at least 6 characters."
+                return true
             },
         ],
     }),
