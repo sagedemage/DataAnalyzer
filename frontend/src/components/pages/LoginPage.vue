@@ -1,11 +1,12 @@
 <script>
+import { ref } from "vue";
 import Cookies from "universal-cookie";
 import Redirect from "@/Redirect";
 import axios from "axios";
 
 export default {
     data: () => ({
-        auth: null,
+        //auth: null,
         err_msg: "",
         username: "",
         usernameRules: [
@@ -29,9 +30,39 @@ export default {
         ],
     }),
 
+    setup() {
+        let auth = ref(undefined);
+        let err_msg = ref(undefined);
+    
+        async function login() {
+            axios.post("http://localhost:8000/api/login", {
+                username: this.username,
+                password: this.password
+            })
+                .then(function (response) {
+                    console.log(response);
+                    console.log(response.data.err_msg)
+                    if (response.data.auth === true) {
+                        const cookies = new Cookies();
+                        cookies.set("token", response.data.token);
+                        Redirect("/dashboard");
+                    }
+                    else {
+                        auth.value = false;
+                        err_msg.value = response.data.err_msg;
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        return { auth, login }
+    },
+
     methods: {
-        async login() {
-            /* Login POST request */
+        /*async login() {
+            / Login POST request /
 
             axios.post("http://localhost:8000/api/login", {
                 username: this.username,
@@ -45,14 +76,14 @@ export default {
                         Redirect("/dashboard");
                     }
                     else {
-                        this.auth = false;
+                        auth.value = false;
                         this.err_msg = response.data.err_msg;
                     }
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
-        }
+        }*/
     }
 }
 </script>
