@@ -62,25 +62,31 @@ export default {
 
         function register() {
             if (email.value !== "" && username.value !== "" && password.value !== "" && confirm.value !== "") {
-                axios.post("http://localhost:8000/api/register", {
-                    email: email.value,
-                    username: username.value,
-                    password: password.value
-                })
-                    .then(function (response) {
-                        console.log(response.data.registered);
-                        if (response.data.registered === true) {
-                            Redirect("/login");
-                        }
-                        else {
-                            console.log(response.data.err_msg)
-                            registered.value = false;
-                            err_msg.value = response.data.err_msg;
-                        }
+                if (password.value === confirm.value) {
+                    axios.post("http://localhost:8000/api/register", {
+                        email: email.value,
+                        username: username.value,
+                        password: password.value
                     })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                        .then(function (response) {
+                            console.log(response.data.registered);
+                            if (response.data.registered === true) {
+                                Redirect("/login");
+                            }
+                            else {
+                                registered.value = false;
+                                err_msg.value = response.data.err_msg;
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+                else {
+                    registered.value = false;
+                    err_msg.value = "Passwords do not match!";
+                }
+
             }
         }
 

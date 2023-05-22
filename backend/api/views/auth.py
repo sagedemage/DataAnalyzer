@@ -26,9 +26,9 @@ def register(request):
         username_match = User.objects.filter(username__exact=serializer.data.get("username"))
         password = serializer.data.get("password")
         if email_match.exists() is True:
-            return JsonResponse({'registered': False, 'err_msg': "Email Already exists"})
+            return JsonResponse({'registered': False, 'err_msg': "Email already exists!"})
         elif username_match.exists() is True:
-            return JsonResponse({'registered': False, 'err_msg': "Username Already exists"})
+            return JsonResponse({'registered': False, 'err_msg': "Username already exists!"})
         else:
             hashed_password = make_password(password)
             user = User(email=serializer.data.get("email"), username=serializer.data.get("username"),
