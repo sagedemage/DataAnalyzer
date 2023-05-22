@@ -1,4 +1,7 @@
 <script setup>
+import Cookies from "universal-cookie";
+import Redirect from "@/Redirect";
+
 defineProps({
   msg: {
     type: String,
@@ -8,77 +11,107 @@ defineProps({
 </script>
 
 <script>
-  export default {
-    data: () => ({
-      drawer: false,
-      group: null,
-      items: [
-        {
-          title: "Home",
-          route: "#/",
-        },
-        {
-          title: "About",
-          route: "#/about",
-        },
-        {
-          title: "Dashboard",
-          route: "#/dashboard",
-        },
-        {
-          title: "Login",
-          route: "#/login",
-        },
-        {
-          title: "Register",
-          route: "#/register",
-        }
-      ],
-    }),
+import AuthRoute from "@/AuthRoute";
 
-    watch: {
-      group () {
-        this.drawer = false
+export default {
+  data: () => ({
+    drawer: false,
+    group: null,
+    is_authenticated: false,
+    normal_routes: [
+      {
+        title: "Home",
+        route: "#/",
       },
-    },
-
-    methods: {
-      navigate(route) {
-        location.href = route;
-        this.drawer = false;
+      {
+        title: "About",
+        route: "#/about",
+      },
+      {
+        title: "Login",
+        route: "#/login",
+      },
+      {
+        title: "Register",
+        route: "#/register",
       }
+    ],
+    auth_routes: [
+      {
+        title: "Home",
+        route: "#/",
+      },
+      {
+        title: "About",
+        route: "#/about",
+      },
+      {
+        title: "Dashboard",
+        route: "#/dashboard",
+      },
+    ],
+  }),
+
+  watch: {
+    async group() {
+      this.drawer = false
+    },
+  },
+
+  methods: {
+    navigate(route) {
+      location.href = route;
+      this.drawer = false;
+    },
+    logout() {
+      const cookies = new Cookies();
+      cookies.remove("token");
+
+      Redirect("/");
     }
-  }
+  },
+
+  async mounted() {
+    // bug: this is not returning a boolean
+    this.is_authenticated = await AuthRoute();
+    console.log(this.is_authenticated);
+  },
+}
+
 </script>
 
 <template>
   <div>
     <v-layout>
       <v-app-bar color="#39AE6D" prominent>
-      <v-app-bar-nav-icon variant="text" aria-label="navigation hamburger menu" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon variant="text" aria-label="navigation hamburger menu"
+          @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>Learn Vue</v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-btn id="logout" v-if="is_authenticated" variant="elevated" @click="$event => logout()">Logout</v-btn>
       </v-app-bar>
       <v-navigation-drawer v-model="drawer" location="left" temporary>
         <v-list flat dense nav class="py-1" aria-label="list of navigation links" role="tablist">
-            <v-list-item-group color='primary' mandatory>
-                <v-list-item
-                    v-for="item in items"
-                    :key="item.title"
-                    dense
-                    @click="navigate(item.route)"
-                    aria-label="link item"
-                    role="tab"
-                >
-                    <v-list-item-icon>
-                        <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-title>{{ item.title }}</v-list-title>
-                    </v-list-item-content>
-
-                </v-list-item>
-            </v-list-item-group>
+          <v-list-item-group v-model="authenticated" color='primary' mandatory>
+            <!-- User is Authenticated -->
+            <div v-if="is_authenticated">
+              <v-list-item v-for="route in auth_routes" :key="route.title" dense @click="navigate(route.route)"
+              aria-label="link item" role="tab">
+              <v-list-item-content>
+                <v-list-title>{{ route.title }}</v-list-title>
+              </v-list-item-content>
+              </v-list-item>
+            </div>
+            <!-- User is not Authenticated -->
+            <div v-if="!is_authenticated">
+              <v-list-item v-for="route in normal_routes" :key="route.title" dense @click="navigate(route.route)"
+              aria-label="link item" role="tab">
+              <v-list-item-content>
+                <v-list-title>{{ route.title }}</v-list-title>
+              </v-list-item-content>
+              </v-list-item>
+            </div>
+          </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
     </v-layout>
@@ -102,6 +135,7 @@ h3 {
 }
 
 @media (min-width: 1024px) {
+
   .greetings h1,
   .greetings h3 {
     text-align: left;
@@ -113,4 +147,8 @@ h3 {
   color: white;
 }
 
+#logout {
+  background-color: rgb(17, 53, 255) !important;
+  color: white;
+}
 </style>

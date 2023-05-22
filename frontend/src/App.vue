@@ -7,46 +7,12 @@ import { defineAsyncComponent } from "vue"
 const NavbarUI = defineAsyncComponent(() => import("@/components/ui/NavbarUI.vue"));
 const FooterUI = defineAsyncComponent(() => import("@/components/ui/FooterUI.vue"));
 
-/* Page Components */
-const HomePage = defineAsyncComponent(() => import("@/components/pages/HomePage.vue"));
-const AboutPage = defineAsyncComponent(() => import("@/components/pages/AboutPage.vue"));
-const PageNotFound = defineAsyncComponent(() => import("@/components/pages/PageNotFound.vue"));
-const DashboardPage = defineAsyncComponent(() => import("@/components/pages/DashboardPage.vue"));
-const LoginPage = defineAsyncComponent(() => import("@/components/pages/LoginPage.vue"));
-const RegisterPage = defineAsyncComponent(() => import("@/components/pages/RegisterPage.vue"));
-
-const routes = {
-  "/": HomePage,
-  "/about": AboutPage,
-  "/dashboard": DashboardPage,
-  "/login": LoginPage,
-  "/register": RegisterPage
-}
-
-export default {
-  data() {
-    return {
-      currentPath: window.location.hash
-    }
-  },
-  computed: {
-    currentView() {
-      return routes[this.currentPath.slice(1) || "/"] || PageNotFound
-    }
-  },
-  mounted() {
-    window.addEventListener("hashchange", () => {
-          this.currentPath = window.location.hash
-        })
-  }
-}
 </script>
-
 <template>
   <div id="body">
     <NavbarUI />
     <main>
-      <component :is="currentView" />
+      <router-view></router-view>
     </main>
     <FooterUI id="footer" />
   </div>
@@ -79,4 +45,5 @@ header {
     flex-wrap: wrap;
   }
 }
+
 </style>

@@ -19,11 +19,15 @@ def get_decoded_token(request):
        Request Parameters:
        - token: string
     """
-    token = request.data.get("token")
-    decoded_token = decode_token(token)
-    auth = decoded_token.get('auth')
-    user_id = decoded_token.get('user_id')
-    return JsonResponse({'auth': auth, 'user_id': user_id})
+    if request.data.get("token") != None:
+        token_string = str(request.data.get("token"))
+        token = bytes(token_string, encoding='utf8')
+        decoded_token = decode_token(token)
+        auth = decoded_token.get('auth')
+        user_id = decoded_token.get('user_id')
+        return JsonResponse({'auth': auth, 'user_id': user_id})
+    else:
+        return JsonResponse({'auth': False})
 
 
 def generate_token(user_id):
@@ -32,7 +36,7 @@ def generate_token(user_id):
     return encoded
 
 
-def decode_token(encoded):
+def decode_token(encoded: bytes):
     secret = os.getenv("JWT_SECRET")
     decoded = jwt.decode(encoded, secret, algorithms=["HS256"])
     return decoded
