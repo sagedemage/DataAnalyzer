@@ -1,12 +1,10 @@
 <script>
+import { ref } from "vue";
 import Redirect from "@/Redirect";
 import axios from "axios";
 
 export default {
     data: () => ({
-        registered: null,
-        err_msg: "",
-        email: "",
         emailRules: [
             value => {
                 if (value === "") {
@@ -18,7 +16,6 @@ export default {
                 return true
             },
         ],
-        username: "",
         usernameRules: [
             value => {
                 if (value === "") {
@@ -30,7 +27,6 @@ export default {
                 return true
             },
         ],
-        password: "",
         passwordRules: [
             value => {
                 if (value === "") {
@@ -45,7 +41,6 @@ export default {
                 return true
             },
         ],
-        confirm: "",
         confirmRules: [
             value => {
                 if (value?.length >= 8) {
@@ -57,31 +52,40 @@ export default {
         ],
     }),
 
-    methods: {
-        async register() {
-            /* Login POST request */
+    setup() {
+        let registered = ref(undefined);
+        let err_msg = ref(undefined);
+        let email = ref("");
+        let username = ref("");
+        let password = ref("");
+        let confirm = ref("");
 
-            axios.post("http://localhost:8000/api/register", {
-                email: this.email,
-                username: this.username,
-                password: this.password
-            })
-                .then(function(response) {
-                    console.log(response.data.registered);
-                    if (response.data.registered === true) {
-                        Redirect("/login");
-                    }
-                    else {
-                        console.log(response.data.err_msg)
-                        this.registered = false;
-                        this.err_msg = response.data.err_msg;
-                    }
+        function register() {
+            if (email.value !== "" && username.value !== "" && password.value !== "" && confirm.value !== "") {
+                axios.post("http://localhost:8000/api/register", {
+                    email: email.value,
+                    username: username.value,
+                    password: password.value
                 })
-                .catch(function(error) {
-                    console.log(error);
-                });
+                    .then(function (response) {
+                        console.log(response.data.registered);
+                        if (response.data.registered === true) {
+                            Redirect("/login");
+                        }
+                        else {
+                            console.log(response.data.err_msg)
+                            registered.value = false;
+                            err_msg.value = response.data.err_msg;
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
         }
-    }
+
+        return { register, registered, err_msg, email, username, password, confirm }
+    },
 }
 </script>
 
@@ -94,7 +98,7 @@ export default {
             <v-text-field v-model="email" label="email" type="email" :rules="emailRules"></v-text-field>
             <v-text-field v-model="username" label="username" :rules="usernameRules"></v-text-field>
             <v-text-field v-model="password" label="password" type="password" :rules="passwordRules"></v-text-field>
-            <v-text-field v-model="confirm" label="confirm password" type="password" :rules="confirmRules"></v-text-field>
+            <v-text-field v-model="confirm" label="confirm" type="password" :rules="confirmRules"></v-text-field>
             <v-btn type="submit" block class="mt-2" @click="register()">Submit</v-btn>
         </v-form>
     </v-sheet>
