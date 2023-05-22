@@ -46,23 +46,4 @@ header {
   }
 }
 
-.alert {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 5px;
-}
-
-.alert-error {
-    background-color: #ffd5d5;
-    color: darkred;
-    border: #ffb7b7 1px solid;
-}
-
-.alert-success {
-    background-color: #d6ffd5;
-    color: darkgreen;
-    border: #b1fcaf 1px solid;
-}
 </style>

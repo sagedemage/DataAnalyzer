@@ -34,7 +34,7 @@ export default {
         let auth = ref(undefined);
         let err_msg = ref(undefined);
     
-        async function login() {
+        function login() {
             axios.post("http://localhost:8000/api/login", {
                 username: this.username,
                 password: this.password
@@ -57,7 +57,7 @@ export default {
                 });
         }
 
-        return { auth, login }
+        return { auth, login, err_msg }
     },
 
     methods: {
